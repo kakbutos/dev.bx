@@ -1,3 +1,2 @@
 <?php
-
-echo 'first commit';
+declare(strict_types=1);
