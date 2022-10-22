@@ -1,7 +1,7 @@
 -- NEW TABLE
 CREATE TABLE language
 (
-	ID varchar(20) not null,
+	ID varchar(3) not null,
 	NAME varchar(500) not null,
 
 	PRIMARY KEY (ID)
@@ -10,7 +10,7 @@ CREATE TABLE language
 CREATE TABLE movie_title
 (
 	MOVIE_ID int not null,
-	LANGUAGE_ID varchar(20) not null,
+	LANGUAGE_ID varchar(3) not null,
 	TITLE varchar(500) not null,
 
 	PRIMARY KEY (MOVIE_ID, LANGUAGE_ID),
