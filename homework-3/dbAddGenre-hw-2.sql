@@ -35,14 +35,14 @@ LEFT JOIN movie_title mt_ru on m.ID = mt_ru.MOVIE_ID AND mt_ru.LANGUAGE_ID = 'ru
 # с подзапросом
 SELECT m.ID, mt.TITLE, m.LENGTH
 FROM movie m
-	     LEFT JOIN movie_title mt ON m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
+LEFT JOIN movie_title mt ON m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
 WHERE DIRECTOR_ID = 1
   AND m.LENGTH IN (SELECT MAX(m1.LENGTH) FROM movie m1);
 
 # без подзапроса
 SELECT m.ID, mt.TITLE, m.LENGTH
 FROM movie m
-	     LEFT JOIN movie_title mt ON m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
+LEFT JOIN movie_title mt ON m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
 WHERE DIRECTOR_ID = 1
 ORDER BY m.LENGTH DESC
 	LIMIT 1;
@@ -70,7 +70,7 @@ WHERE g.ID NOT IN
       (
 	      SELECT mg.GENRE_ID
 	      FROM movie_actor ma
-		           INNER JOIN movie_genre mg on ma.MOVIE_ID = mg.MOVIE_ID
+		  INNER JOIN movie_genre mg on ma.MOVIE_ID = mg.MOVIE_ID
 	      WHERE ma.ACTOR_ID = 1
       );
 
@@ -79,8 +79,8 @@ WHERE g.ID NOT IN
 
 SELECT m.ID, mt.TITLE
 FROM movie m
-	     LEFT JOIN movie_title mt on m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
-	     INNER JOIN movie_genre mg on m.ID = mg.MOVIE_ID
+LEFT JOIN movie_title mt on m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
+INNER JOIN movie_genre mg on m.ID = mg.MOVIE_ID
 GROUP BY m.ID
 HAVING COUNT(mg.GENRE_ID) > 3;
 
