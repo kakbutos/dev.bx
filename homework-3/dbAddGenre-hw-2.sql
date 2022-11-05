@@ -32,20 +32,18 @@ LEFT JOIN movie_title mt_ru on m.ID = mt_ru.MOVIE_ID AND mt_ru.LANGUAGE_ID = 'ru
 #  Формат: ID фильма, Название на русском языке, Длительность.
 # (Бонус – без использования подзапросов)
 
-# с подзапросом
 SELECT m.ID, mt.TITLE, m.LENGTH
 FROM movie m
 LEFT JOIN movie_title mt ON m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
 WHERE DIRECTOR_ID = 1
-  AND m.LENGTH IN (SELECT MAX(m1.LENGTH) FROM movie m1);
+AND m.LENGTH IN (SELECT MAX(m1.LENGTH) FROM movie m1);
 
 # без подзапроса
 SELECT m.ID, mt.TITLE, m.LENGTH
 FROM movie m
 LEFT JOIN movie_title mt ON m.ID = mt.MOVIE_ID AND mt.LANGUAGE_ID = 'ru'
 WHERE DIRECTOR_ID = 1
-ORDER BY m.LENGTH DESC
-	LIMIT 1;
+ORDER BY m.LENGTH DESC LIMIT 1;
 
 # 4. ** Вывести список фильмов с названием, сокращённым до 10 символов. Если название короче 10 символов – оставляем как есть. Если длиннее – сокращаем до 10 символов и добавляем многоточие.
 #  Формат: ID фильма, сокращённое название
