@@ -15,7 +15,7 @@
 }
 
 .movie-title {
-	font-weight: 700;
+	font-weight: var(--large-text);
 	font-size: 48px;
 	color: #333333;
 }
@@ -43,13 +43,13 @@
 }
 
 .movie-original-title {
-	font-weight: 600;
+	font-weight: var(--medium-text);
 	font-size: 24px;
 	color: #999999;
 }
 
 .movie-age {
-	font-weight: 600;
+	font-weight: var(--medium-text);
 	font-size: 18px;
 	color: #CCCCCC;
 	border: 3px solid #CCCCCC;
@@ -90,7 +90,7 @@
 
 .rating-circle {
 	color: #FFFFFF;
-	font-weight: 700;
+	font-weight: var(--large-text);
 	line-height: 30px;
 	font-size: 22px;
 	background: #E78818;
@@ -109,7 +109,7 @@
 }
 
 .detail-text-title {
-	font-weight: 700;
+	font-weight: var(--large-text);
 	font-size: 24px;
 	color: #333333;
 	margin-bottom: 15px;
@@ -125,7 +125,7 @@
 }
 
 .detail-text-s-black {
-	font-weight: 400;
+	font-weight: var(--small-text);
 	font-size: 16px;
 	color: #000000;
 	margin-bottom: 15px;
@@ -133,7 +133,7 @@
 }
 
 .detail-text-s-gray {
-	font-weight: 400;
+	font-weight: var(--small-text);
 	font-size: 16px;
 	color: #666666;
 	margin-bottom: 15px;
@@ -141,7 +141,7 @@
 }
 
 .movie-desc-text {
-	font-weight: 400;
+	font-weight: var(--small-text);
 	font-size: 18px;
 	color: #000000;
 	line-height: 28px;

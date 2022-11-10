@@ -6,6 +6,9 @@
 ?>
 
 <div class="card-wrapper">
+	<?php if (empty($movies)):?>
+		<?= $config['notFoundMovie'] ?>
+	<?php endif; ?>
 	<?php foreach ($movies as $movie): ?>
 	<div class="card">
 		<div class="card-img" style="background-image: url('../../assets/images/<?= $movie['id'] ?>.jpg')"></div>

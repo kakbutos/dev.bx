@@ -16,5 +16,6 @@ $config = [
 		'productionYear' => 'Год производства:',
 		'producer' => 'Режиссер:',
 		'starring' => 'В главных ролях:'
-	]
+	],
+	'notFoundMovie' => 'Такого фильма нет'
 ];

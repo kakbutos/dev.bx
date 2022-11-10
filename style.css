@@ -1,11 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
+:root {
+	--small-text: 400;
+	--medium-text: 600;
+	--large-text: 700;
+}
+
 .container {
 	width: 100%;
-	font-family: 'Open Sans', sans-serif;
-
 	display: flex;
 	flex-direction: row;
+
+	font-family: 'Open Sans', sans-serif;
 }
 
 /*
@@ -14,8 +20,11 @@
 
 .content {
 	padding: 16px 44px;
-	background: #CCCCCC;
 }
+
+/*
+	WRAPPER
+*/
 
 .wrapper {
 	flex: 1;

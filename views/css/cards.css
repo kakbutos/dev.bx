@@ -36,7 +36,7 @@
 .card-detail-btn {
 	width: 221px;
 	height: 56px;
-	font-weight: 700;
+	font-weight: var(--large-text);
 	font-size: 18px;
 	line-height: 56px;
 	text-transform: uppercase;
@@ -49,6 +49,7 @@
 	position: absolute;
 	text-align: center;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 .card-img {
@@ -63,13 +64,13 @@
 
 .card-title {
 	color: #333333;
-	font-weight: 600;
+	font-weight: var(--medium-text);
 	font-size: 22px;
 	padding-bottom: 15px;
 }
 
 .card-title-translate {
-	font-weight: 600;
+	font-weight: var(--medium-text);
 	font-size: 14px;
 	color: #999999;
 	border-bottom: 1px solid #F2F2F2;
@@ -78,7 +79,7 @@
 }
 
 .card-desc {
-	font-weight: 400;
+	font-weight: var(--small-text);
 	font-size: 14px;
 	color: #333333;
 	padding-bottom: 25px;
@@ -109,14 +110,14 @@
 }
 
 .card-length {
-	font-weight: 400;
+	font-weight: var(--small-text);
 	font-size: 12px;
 	color: #CCCCCC;
 
 }
 
 .card-genre {
-	font-weight: 600;
+	font-weight: var(--medium-text);
 	font-size: 10px;
 	text-transform: uppercase;
 	color: #CCCCCC;
