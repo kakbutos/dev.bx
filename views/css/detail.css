@@ -1,0 +1,148 @@
+/*
+	MOVIE PAGE
+*/
+
+.movie-detail {
+	background: #FFFFFF;
+	padding: 50px 40px;
+}
+
+.movie-title-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.movie-title {
+	font-weight: 700;
+	font-size: 48px;
+	color: #333333;
+}
+
+.movie-favorites {
+	width: 51px;
+	height: 51px;
+	color: #CCCCCC;
+	fill: #CCCCCC;
+}
+
+.movie-favorites-active {
+	width: 51px;
+	height: 51px;
+	color: red;
+	fill: red;
+}
+
+.movie-age-wrapper {
+	display: flex;
+	align-items: center;
+	padding-bottom: 25px;
+	border-bottom: 1px solid #CCCCCC;
+	margin-bottom: 30px;
+}
+
+.movie-original-title {
+	font-weight: 600;
+	font-size: 24px;
+	color: #999999;
+}
+
+.movie-age {
+	font-weight: 600;
+	font-size: 18px;
+	color: #CCCCCC;
+	border: 3px solid #CCCCCC;
+	border-radius: 7px;
+	padding: 7px;
+	margin-left: 10px;
+}
+
+.movie-img {
+	width: 469px;
+	height: 730px;
+	flex-shrink: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-right: 45px;
+}
+
+.movie-rating {
+	height: 60px;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+.rating-square {
+	width: 22px;
+	height: 22px;
+	margin: 5px;
+}
+
+.rating-square-white {
+	background: #F2F2F2;
+}
+
+.rating-square-orange {
+	background: #E78818;
+}
+
+.rating-circle {
+	color: #FFFFFF;
+	font-weight: 700;
+	line-height: 30px;
+	font-size: 22px;
+	background: #E78818;
+	border-radius: 100%;
+	width: 55px;
+	height: 55px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 10px;
+}
+
+.movie-detail-content {
+	display: flex;
+	flex-direction: row;
+}
+
+.detail-text-title {
+	font-weight: 700;
+	font-size: 24px;
+	color: #333333;
+	margin-bottom: 15px;
+}
+
+.movie-about-wrapper {
+	display: flex;
+}
+
+.movie-about-name-wrapper {
+	max-width: 220px;
+	margin-right: 75px;
+}
+
+.detail-text-s-black {
+	font-weight: 400;
+	font-size: 16px;
+	color: #000000;
+	margin-bottom: 15px;
+	line-height: 22px;
+}
+
+.detail-text-s-gray {
+	font-weight: 400;
+	font-size: 16px;
+	color: #666666;
+	margin-bottom: 15px;
+	line-height: 22px;
+}
+
+.movie-desc-text {
+	font-weight: 400;
+	font-size: 18px;
+	color: #000000;
+	line-height: 28px;
+}

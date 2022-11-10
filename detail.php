@@ -9,10 +9,9 @@ require_once __DIR__ . '/boot.php';
 echo view('views/layout', [
 	'config' => $config,
 	'genres' => $genres,
-	'movies' => $movies,
-	'currentPage' => getFileName(__FILE__),
-	'content' => view('views/components/cards', [
+	'content' => view('views/components/detail', [
 		'config' => $config,
-		'movies' => getMoviesByLink($_GET['genre'], $_GET['search'], $movies),
-	])
+		'movie' => getMovieById($_GET['id'], $movies)
+	]),
+	'currentPage' => getFileName(__FILE__),
 ]);
