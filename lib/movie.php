@@ -1,17 +1,19 @@
 <?php
 
-function getMoviesByGenre($genre, array $movies): array
+function getMoviesByGenre($genre, array $movies, array $genres): array
 {
+	$moviesByGenre = [];
+
 	if (!isset($genre))
 	{
 		return $movies;
 	}
 
-	$moviesByGenre = [];
+	$genreName = getGenreName($genres, $genre);
 
 	foreach ($movies as $movie)
 	{
-		if (in_array($genre, $movie['genres'], true))
+		if (in_array($genreName, $movie['genres'], true))
 		{
 			$moviesByGenre[] = $movie;
 		}
@@ -20,11 +22,11 @@ function getMoviesByGenre($genre, array $movies): array
 	return $moviesByGenre;
 }
 
-function getMovieById(int $id, array $movies): array
+function getMovieById($id, array $movies): array
 {
 	foreach ($movies as $movie)
 	{
-		if ((int)$movie['id'] === $id)
+		if ((int)$movie['id'] === (int)$id)
 		{
 			return $movie;
 		}
@@ -56,7 +58,7 @@ function searchFilmByName($searchValue, array $movies): array
 
 	foreach ($movies as $movie)
 	{
-		if (mb_strtoupper(removeSpaces($movie['title'])) === mb_strtoupper(removeSpaces($searchValue)))
+		if (strripos($movie['title'], $searchValue) !== false)
 		{
 			$moviesByName[] = $movie;
 		}
@@ -65,17 +67,15 @@ function searchFilmByName($searchValue, array $movies): array
 	return $moviesByName;
 }
 
-function getMoviesByLink($genre, $search, $movies): array
+function getGenreName(array $genres, string $idGenre)
 {
-	if (isset($genre))
+	foreach ($genres as $key => $genreName)
 	{
-		return getMoviesByGenre($genre, $movies);
+		if ($key === $idGenre)
+		{
+			return $genreName;
+		}
 	}
 
-	if (isset($search))
-	{
-		return searchFilmByName($search, $movies);
-	}
-
-	return $movies;
+	return '';
 }

@@ -1,29 +1,34 @@
 <?php
 /**
  * @var array $genres
- * @var array $config
- * @var string $currentPage
  */
+
+$currentPage = $_SERVER['REQUEST_URI'];
+$getGenre = $_GET['genre'];
+
+$indexPage = strripos($currentPage, 'index.php');
+$favoritesPage = strripos($currentPage, 'favorites.php');
+
 ?>
 
 <div class="sidebar">
 	<a href="/index.php" class="sidebar-logo"></a>
 	<div class="sidebar-menu">
-		<a 	class="sidebar-item <?= $currentPage === 'index' && $_GET['genre'] === null ? 'sidebar-item-active' : '' ?>"
+		<a 	class="sidebar-item <?= $indexPage && $getGenre === null ? 'sidebar-item-active' : '' ?>"
 		   	href="/index.php">
-			<?= $config['sidebar']['index'] ?>
+			<?= getConfig('index') ?>
 		</a>
 
-		<?php foreach ($genres as $name): ?>
-		<a 	class="sidebar-item <?= $_GET['genre'] === $name ? 'sidebar-item-active' : '' ?>"
-		   	href="<?= "index.php" . "?genre=" . $name ?>">
+		<?php foreach ($genres as $key => $name): ?>
+		<a 	class="sidebar-item <?= $getGenre === $key ? 'sidebar-item-active' : '' ?>"
+		   	href="<?= "index.php" . "?genre=" . $key ?>">
 			<?= $name ?>
 		</a>
 		<?php endforeach;?>
 
-		<a 	class="sidebar-item <?= $currentPage === 'favorites' ? 'sidebar-item-active' : '' ?>"
+		<a 	class="sidebar-item <?= $favoritesPage ? 'sidebar-item-active' : '' ?>"
 		   	href="/favorites.php">
-			<?= $config['sidebar']['favorites'] ?>
+			<?= getConfig('favorites') ?>
 		</a>
 	</div>
 </div>

@@ -1,6 +1,5 @@
 <?php
 /**
- * @var array $config
  * @var array $movie
  */
 ?>
@@ -27,12 +26,12 @@
 				<?php endfor; ?>
 				<div class="rating-circle"><?= $movie['rating'] ?></div>
 			</div>
-			<div class="movie-about-title detail-text-title"><?= $config['movieDetail']['about'] ?></div>
+			<div class="movie-about-title detail-text-title"><?= getConfig('about') ?></div>
 			<div class="movie-about-wrapper">
 				<div class="movie-about-name-wrapper">
-					<div class="movie-about-name detail-text-s-gray"><?= $config['movieDetail']['productionYear'] ?></div>
-					<div class="movie-about-name detail-text-s-gray"><?= $config['movieDetail']['producer'] ?></div>
-					<div class="movie-about-name detail-text-s-gray"><?= $config['movieDetail']['starring'] ?></div>
+					<div class="movie-about-name detail-text-s-gray"><?= getConfig('productionYear') ?></div>
+					<div class="movie-about-name detail-text-s-gray"><?= getConfig('producer') ?></div>
+					<div class="movie-about-name detail-text-s-gray"><?= getConfig('starring') ?></div>
 				</div>
 				<div class="movie-about-desc-wrapper">
 					<div class="movie-about-desc detail-text-s-black"><?= $movie['release-date'] ?></div>
@@ -40,7 +39,7 @@
 					<div class="movie-about-desc detail-text-s-black"><?= formatText($movie['cast']) ?></div>
 				</div>
 			</div>
-			<div class="movie-desc-title detail-text-title"><?= $config['movieDetail']['description'] ?></div>
+			<div class="movie-desc-title detail-text-title"><?= getConfig('description') ?></div>
 			<div class="movie-desc-text"><?= $movie['description'] ?></div>
 		</div>
 	</div>

@@ -1,17 +1,21 @@
 <?php
-
+declare(strict_types=1);
 require_once __DIR__ . '/boot.php';
 
-/** @var array $config */
 /** @var array $genres */
 /** @var array $movies */
 
+$getId = $_GET['id'];
+$sortedMovie = [];
+
+if (isset($getId))
+{
+	$sortedMovie = getMovieById($_GET['id'], $movies);
+}
+
 echo view('views/layout', [
-	'config' => $config,
 	'genres' => $genres,
 	'content' => view('views/components/detail', [
-		'config' => $config,
-		'movie' => getMovieById($_GET['id'], $movies)
-	]),
-	'currentPage' => getFileName(__FILE__),
+		'movie' => $sortedMovie,
+	])
 ]);

@@ -1,9 +1,7 @@
 <?php
 /**
  * @var array $genres
- * @var array $config
  * @var $content
- * @var $currentPage
 */
 ?>
 <!doctype html>
@@ -17,18 +15,16 @@
 	<link rel="stylesheet" href="../views/css/sidebar.css">
 	<link rel="stylesheet" href="../views/css/cards.css">
 	<link rel="stylesheet" href="../views/css/detail.css">
-	<title><?= $config['title']; ?></title>
+	<title><?= getConfig('title'); ?></title>
 </head>
 <body>
 
 <div class="container">
 	<?= view('views/components/sidebar', [
 		'genres' => $genres,
-		'config' => $config,
-		'currentPage' => $currentPage,
 	]) ?>
 	<div class="wrapper">
-		<?= view('views/components/header', ['config' => $config]) ?>
+		<?= view('views/components/header') ?>
 		<div class="content">
 			<?= $content ?>
 		</div>

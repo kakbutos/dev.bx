@@ -1,9 +1,3 @@
-<?php
-/**
- * @var array $config
- */
-?>
-
 <div class="header">
 	<div class="header-search">
 		<div class="header-search-logo"></div>
@@ -11,10 +5,10 @@
 			<input class="header-search-input"
 				   name="search"
 				   type="text"
-				   placeholder="<?= $config['searchCatalog'] ?>"
+				   placeholder="<?= getConfig('searchCatalog') ?>"
 			>
-			<button type="submit" class="header-search-btn small-btn"><?= $config['search'] ?></button>
+			<button type="submit" class="header-search-btn small-btn"><?= getConfig('search') ?></button>
 		</form>
 	</div>
-	<a href="/add-film.php" class="header-add-film-btn small-btn"><?= $config['addFilm'] ?></a>
+	<a href="/add-film.php" class="header-add-film-btn small-btn"><?= getConfig('addFilm') ?></a>
 </div>

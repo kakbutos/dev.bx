@@ -1,13 +1,12 @@
 <?php
 /**
- * @var array $config
  * @var $movies
  */
 ?>
 
 <div class="card-wrapper">
 	<?php if (empty($movies)):?>
-		<?= $config['notFoundMovie'] ?>
+		<?= getConfig('notFoundMovie', 'Такого фильма нет') ?>
 	<?php endif; ?>
 	<?php foreach ($movies as $movie): ?>
 	<div class="card">
@@ -23,14 +22,14 @@
 						<?= $movie['duration'] . " мин. / " . date('h:i', mktime(0, $movie['duration'])) ?>
 					</div>
 				</div>
-				<div class="card-genre"><?= formatText($movie['genres']) ?></div>
+				<div class="card-genre"><?= formatText(removeElArray($movie['genres'], 3)) ?></div>
 			</div>
 		</div>
 		<div class="card-overlay-wrapper">
 			<div class="card-overlay"></div>
 			<a 	href="<?= 'detail.php' . '?id=' . $movie['id'] ?>"
 				class="card-detail-btn">
-				<?= $config['detail'] ?>
+				<?= getConfig('detail') ?>
 			</a>
 		</div>
 	</div>

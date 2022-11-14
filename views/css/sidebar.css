@@ -12,6 +12,7 @@
 .sidebar {
 	width: var(--sidebar-width);
 	background: var(--sidebar-color);
+	flex-shrink: 0;
 }
 
 .sidebar .sidebar-logo {
