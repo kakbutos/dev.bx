@@ -4,7 +4,7 @@
  */
 
 $currentPage = $_SERVER['REQUEST_URI'];
-$getGenre = $_GET['genre'];
+$getGenre = $_GET['genre'] ?? null;
 
 $indexPage = strripos($currentPage, 'index.php');
 $favoritesPage = strripos($currentPage, 'favorites.php');

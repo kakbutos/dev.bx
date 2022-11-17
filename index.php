@@ -5,26 +5,19 @@ require_once __DIR__ . '/boot.php';
 /** @var array $genres */
 /** @var array $movies */
 
-$sortedMovies = [];
-$getGenre = $_GET['genre'];
-$getSearch = $_GET['search'];
+if (isset($_GET['genre']))
+{
+	$movies = getMoviesByGenre($_GET['genre'], $movies, $genres);
+}
 
-if (isset($getGenre))
+if (isset($_GET['search']))
 {
-	$sortedMovies = getMoviesByGenre($getGenre, $movies, $genres);
-}
-elseif (isset($getSearch))
-{
-	$sortedMovies = searchFilmByName($getSearch, $movies);
-}
-else
-{
-	$sortedMovies = $movies;
+	$movies = searchFilmByName($_GET['search'], $movies);
 }
 
 echo view('views/layout', [
 	'genres' => $genres,
 	'content' => view('views/components/cards', [
-		'movies' => $sortedMovies,
+		'movies' => $movies,
 	])
 ]);
