@@ -22,7 +22,7 @@
 						<?= $movie['duration'] . " мин. / " . date('h:i', mktime(0, $movie['duration'])) ?>
 					</div>
 				</div>
-				<div class="card-genre"><?= formatText(removeElArray($movie['genres'], 3)) ?></div>
+				<div class="card-genre"><?= formatText($movie['genres'], 2) ?></div>
 			</div>
 		</div>
 		<div class="card-overlay-wrapper">

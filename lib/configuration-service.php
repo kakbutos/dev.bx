@@ -6,7 +6,17 @@ function getConfig(string $name, $defaultValue = null)
 
 	if ($config === null)
 	{
-		$config = require ROOT . '/config.php';
+		$masterConfig = require ROOT . '/config.php';
+		if (file_exists(ROOT . '/config.local.php'))
+		{
+			$localConfig = require ROOT . '/config.local.php';
+		}
+		else
+		{
+			$localConfig = [];
+		}
+
+		$config = array_merge($masterConfig, $localConfig);
 	}
 
 	if (array_key_exists($name, $config))

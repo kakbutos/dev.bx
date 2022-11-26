@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/boot.php';
 
-/** @var array $genres */
+$genres = getGenresList();
 
 echo view('views/layout', [
 	'genres' => $genres,
-	'content' => 'Страница в разработке...',
+	'content' => 'Страница "Избранное" в разработке...',
 ]);

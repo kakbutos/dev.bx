@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
+
 require_once __DIR__ . '/boot.php';
 
-/** @var array $genres */
-/** @var array $movies */
+$genres = getGenresList();
 
-$movie = isset($_GET['id']) ? getMovieById($_GET['id'], $movies) : [];
+$movie = isset($_GET['id']) ? getMovieById($_GET['id']) : [];
 
 echo view('views/layout', [
 	'genres' => $genres,

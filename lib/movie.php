@@ -1,38 +1,204 @@
 <?php
 
-function getMoviesByGenre($genre, array $movies, array $genres): array
+function getMoviesList(): array
 {
-	$moviesByGenre = [];
+	$connection = getDbConnection();
 
-	if (!isset($genre))
+	$result = mysqli_query($connection,
+					"SELECT  m.ID,
+								   m.TITLE,
+								   m.ORIGINAL_TITLE,
+								   m.DESCRIPTION,
+								   m.DURATION,
+								   GROUP_CONCAT(g.NAME SEPARATOR ', ') AS `GENRES`,
+								   castTable.CAST,
+								   d.NAME as `DIRECTOR`,
+								   m.AGE_RESTRICTION,
+								   m.RELEASE_DATE,
+								   m.RATING
+							FROM movie m
+							INNER JOIN director d on m.DIRECTOR_ID = d.ID
+							INNER JOIN movie_genre mg on m.ID = mg.MOVIE_ID
+							INNER JOIN genre g on mg.GENRE_ID = g.ID
+							INNER JOIN 
+							(
+								SELECT ma.MOVIE_ID as `maMovieID`, GROUP_CONCAT(a.NAME SEPARATOR ', ') as `CAST`
+								FROM movie_actor ma
+								INNER JOIN actor a on ma.ACTOR_ID = a.ID
+								GROUP BY ma.MOVIE_ID
+							) castTable on castTable.maMovieID = m.ID
+							GROUP BY m.ID");
+
+	if (!$result)
 	{
-		return $movies;
+		throw new Exception(mysqli_error($connection));
 	}
 
-	$genreName = getGenreName($genres, $genre);
+	$movies = [];
 
-	foreach ($movies as $movie)
+	while ($row = mysqli_fetch_assoc($result))
 	{
-		if (in_array($genreName, $movie['genres'], true))
-		{
-			$moviesByGenre[] = $movie;
-		}
+		$movies[] = [
+			'id' => $row['ID'],
+			'title' => $row['TITLE'],
+			'original-title' => $row['ORIGINAL_TITLE'],
+			'description' => $row['DESCRIPTION'],
+			'duration' => $row['DURATION'],
+			'genres' => $row['GENRES'],
+			'cast' => $row['CAST'],
+			'director' => $row['DIRECTOR'],
+			'age-restriction' => $row['AGE_RESTRICTION'],
+			'release-date' => $row['RELEASE_DATE'],
+			'rating' => $row['RATING']
+		];
 	}
 
-	return $moviesByGenre;
+	return $movies;
 }
 
-function getMovieById($id, array $movies): array
+function getGenresList(): array
 {
-	foreach ($movies as $movie)
+	$connection = getDbConnection();
+
+	$result = mysqli_query($connection, "select CODE, NAME from genre");
+
+	if (!$result)
 	{
-		if ((int)$movie['id'] === (int)$id)
-		{
-			return $movie;
-		}
+		throw new Exception(mysqli_error($connection));
 	}
 
-	return [];
+	$genres = [];
+	$resultList = [];
+
+	while ($row = mysqli_fetch_assoc($result))
+	{
+		$genres[] = $row;
+	}
+
+	foreach ($genres as $value)
+	{
+		$resultList[$value['CODE']] = $value['NAME'];
+	}
+
+	return $resultList;
+}
+
+function getMoviesByGenre($genre): array
+{
+	$connection = getDbConnection();
+
+	$genre = mysqli_escape_string($connection, $genre);
+
+	$result = mysqli_query($connection,
+		"SELECT  m.ID,
+					   m.TITLE,
+					   m.ORIGINAL_TITLE,
+					   m.DESCRIPTION,
+					   m.DURATION,
+					   GROUP_CONCAT(g.NAME SEPARATOR ', ') AS `GENRES`,
+					   GROUP_CONCAT(g.CODE SEPARATOR ', ') AS `GENRE_CODE`,
+					   castTable.CAST,
+					   d.NAME as `DIRECTOR`,
+					   m.AGE_RESTRICTION,
+					   m.RELEASE_DATE,
+					   m.RATING
+				FROM movie m
+				INNER JOIN director d on m.DIRECTOR_ID = d.ID
+				INNER JOIN movie_genre mg on m.ID = mg.MOVIE_ID
+				INNER JOIN genre g on mg.GENRE_ID = g.ID
+				INNER JOIN 
+				(
+					SELECT ma.MOVIE_ID as `maMovieID`, GROUP_CONCAT(a.NAME SEPARATOR ', ') as `CAST`
+					FROM movie_actor ma
+					INNER JOIN actor a on ma.ACTOR_ID = a.ID
+					GROUP BY ma.MOVIE_ID
+				) castTable on castTable.maMovieID = m.ID
+				GROUP BY m.ID
+				HAVING GENRE_CODE like '%{$genre}%'");
+
+	if (!$result)
+	{
+		throw new Exception(mysqli_error($connection));
+	}
+
+	$movies = [];
+
+	while ($row = mysqli_fetch_assoc($result))
+	{
+		$movies[] = [
+			'id' => $row['ID'],
+			'title' => $row['TITLE'],
+			'original-title' => $row['ORIGINAL_TITLE'],
+			'description' => $row['DESCRIPTION'],
+			'duration' => $row['DURATION'],
+			'genres' => $row['GENRES'],
+			'cast' => $row['CAST'],
+			'director' => $row['DIRECTOR'],
+			'age-restriction' => $row['AGE_RESTRICTION'],
+			'release-date' => $row['RELEASE_DATE'],
+			'rating' => $row['RATING']
+		];
+	}
+
+	return $movies;
+}
+
+function getMovieById($id): array
+{
+	$connection = getDbConnection();
+
+	$id = mysqli_escape_string($connection, $id);
+
+	$result = mysqli_query($connection,
+		"SELECT  m.ID,
+					   m.TITLE,
+					   m.ORIGINAL_TITLE,
+					   m.DESCRIPTION,
+					   m.DURATION,
+					   GROUP_CONCAT(g.NAME SEPARATOR ', ') AS `GENRES`,
+					   castTable.CAST,
+					   d.NAME as `DIRECTOR`,
+					   m.AGE_RESTRICTION,
+					   m.RELEASE_DATE,
+					   m.RATING
+				FROM movie m
+				INNER JOIN director d on m.DIRECTOR_ID = d.ID
+				INNER JOIN movie_genre mg on m.ID = mg.MOVIE_ID
+				INNER JOIN genre g on mg.GENRE_ID = g.ID
+				INNER JOIN 
+				(
+					SELECT ma.MOVIE_ID as `maMovieID`, GROUP_CONCAT(a.NAME SEPARATOR ', ') as `CAST`
+					FROM movie_actor ma
+					INNER JOIN actor a on ma.ACTOR_ID = a.ID
+					GROUP BY ma.MOVIE_ID
+				) castTable on castTable.maMovieID = m.ID
+				WHERE m.ID = '{$id}'");
+
+	if (!$result)
+	{
+		throw new Exception(mysqli_error($connection));
+	}
+
+	$movie = [];
+
+	while ($row = mysqli_fetch_assoc($result))
+	{
+		$movie[] = [
+			'id' => $row['ID'],
+			'title' => $row['TITLE'],
+			'original-title' => $row['ORIGINAL_TITLE'],
+			'description' => $row['DESCRIPTION'],
+			'duration' => $row['DURATION'],
+			'genres' => $row['GENRES'],
+			'cast' => $row['CAST'],
+			'director' => $row['DIRECTOR'],
+			'age-restriction' => $row['AGE_RESTRICTION'],
+			'release-date' => $row['RELEASE_DATE'],
+			'rating' => $row['RATING']
+		];
+	}
+
+	return $movie;
 }
 
 function createRatingSquares(int $key, int $rating): string
@@ -47,35 +213,61 @@ function createRatingSquares(int $key, int $rating): string
 	}
 }
 
-function searchFilmByName($searchValue, array $movies): array
+function searchFilmByName($searchNameFilm): array
 {
-	if (!isset($searchValue))
+	$connection = getDbConnection();
+
+	$searchNameFilm = mysqli_escape_string($connection, $searchNameFilm);
+
+	$result = mysqli_query($connection,
+		"	SELECT  m.ID,
+						m.TITLE,
+						m.ORIGINAL_TITLE,
+						m.DESCRIPTION,
+						m.DURATION,
+						GROUP_CONCAT(g.NAME SEPARATOR ', ') AS `GENRES`,
+						castTable.CAST,
+						d.NAME as `DIRECTOR`,
+						m.AGE_RESTRICTION,
+						m.RELEASE_DATE,
+						m.RATING
+				FROM movie m
+						 INNER JOIN director d on m.DIRECTOR_ID = d.ID
+						 INNER JOIN movie_genre mg on m.ID = mg.MOVIE_ID
+						 INNER JOIN genre g on mg.GENRE_ID = g.ID
+						 INNER JOIN
+				(
+					SELECT ma.MOVIE_ID as `maMovieID`, GROUP_CONCAT(a.NAME SEPARATOR ', ') as `CAST`
+						 FROM movie_actor ma
+								  INNER JOIN actor a on ma.ACTOR_ID = a.ID
+						 GROUP BY ma.MOVIE_ID
+					 ) castTable on castTable.maMovieID = m.ID
+				WHERE m.TITLE like '%{$searchNameFilm}%'
+				GROUP BY m.ID");
+
+	if (!$result)
 	{
-		return $movies;
+		throw new Exception(mysqli_error($connection));
 	}
 
-	$moviesByName = [];
+	$movie = [];
 
-	foreach ($movies as $movie)
+	while ($row = mysqli_fetch_assoc($result))
 	{
-		if (strripos($movie['title'], $searchValue) !== false)
-		{
-			$moviesByName[] = $movie;
-		}
+		$movie[] = [
+			'id' => $row['ID'],
+			'title' => $row['TITLE'],
+			'original-title' => $row['ORIGINAL_TITLE'],
+			'description' => $row['DESCRIPTION'],
+			'duration' => $row['DURATION'],
+			'genres' => $row['GENRES'],
+			'cast' => $row['CAST'],
+			'director' => $row['DIRECTOR'],
+			'age-restriction' => $row['AGE_RESTRICTION'],
+			'release-date' => $row['RELEASE_DATE'],
+			'rating' => $row['RATING']
+		];
 	}
 
-	return $moviesByName;
-}
-
-function getGenreName(array $genres, string $idGenre)
-{
-	foreach ($genres as $key => $genreName)
-	{
-		if ($key === $idGenre)
-		{
-			return $genreName;
-		}
-	}
-
-	return '';
+	return $movie;
 }
