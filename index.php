@@ -2,17 +2,17 @@
 
 require_once __DIR__ . '/boot.php';
 
-$movies = getMoviesList();
+$movies = getMoviesByParams();
 $genres = getGenresList();
 
 if (isset($_GET['genre']))
 {
-	$movies = getMoviesByGenre($_GET['genre']);
+	$movies = getMoviesByParams($_GET['genre']);
 }
 
 if (isset($_GET['search']))
 {
-	$movies = searchFilmByName($_GET['search']);
+	$movies = getMoviesByParams(null, $_GET['search']);
 }
 
 echo view('views/layout', [

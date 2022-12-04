@@ -1,6 +1,6 @@
 <?php
 
-function formatText(string $string, int $count): string
+function trimWords(string $string, int $count): string
 {
 	$array = explode(', ', $string);
 	$array = array_slice($array, 0, $count);

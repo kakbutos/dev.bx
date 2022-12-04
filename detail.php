@@ -6,7 +6,7 @@ require_once __DIR__ . '/boot.php';
 
 $genres = getGenresList();
 
-$movie = isset($_GET['id']) ? getMovieById($_GET['id']) : [];
+$movie = isset($_GET['id']) ? getMovieById((int)$_GET['id']) : [];
 
 echo view('views/layout', [
 	'genres' => $genres,
